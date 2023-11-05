@@ -1,8 +1,73 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+//import Ping from './components/Ping.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <RouterView />
+	<div>
+		<button @click="addBook">add</button>
+		<button @click="clearBooks">rem</button>
+		<p>{{ msg }}</p>
+	</div>
 </template>
+
+<script>
+	import axios from 'axios';
+
+	export default {
+		name: 'Ping',
+		data() {
+			return { msg: '',
+				addBookForm: {
+					title: 'fortnite',
+					author: 'me',
+					read: [true],
+				},
+			};
+		},
+		methods: {
+			getPost() {
+				const path = 'http://localhost:5001/ping';
+				axios.get(path)
+					.then((res) => {
+						this.msg = res.data;
+					})
+					.catch((error) => {
+
+						console.error(error);
+					});
+			},
+
+			addBook() {
+				const payload = {"type": "ADD", "title": "1Q84", "author": "Haruki Murakami", "read": "true"};
+				const path = 'http://localhost:5001/ping';
+				axios.post(path, payload)
+					.then(() => {
+						this.getPost();
+						this.message = 'Book added!';
+					})
+					.catch((error) => {
+						console.log(error);
+						this.getPost();
+					});
+			},
+
+			clearBooks() {
+				const payload = {"type": "CLEAR"};
+				const path = 'http://localhost:5001/ping';
+				axios.post(path, payload)
+					.then(() => {
+						this.getPost();
+						this.message = 'Book added!';
+					})
+					.catch((error) => {
+						console.log(error);
+						this.getPost();
+					});
+			},
+		},
+		created() {
+			this.getPost();
+		},
+	};
+</script>

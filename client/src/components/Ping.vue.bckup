@@ -2,7 +2,7 @@
 	<div>
 		<button @click="addBook">add</button>
 		<button @click="clearBooks">rem</button>
-		<p>{{ msg }}</p>
+		<p>no idea why this exists{{ msg }}</p>
 	</div>
 </template>
 

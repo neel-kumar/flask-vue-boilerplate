@@ -4,7 +4,7 @@ This repo is a boilerplate for any websites using vue that have a python back-en
 # Run example client and server
 // run the server 1st
 cd server
-flask run
+flask run --port=5001 --debug
 
 // then run the vue website
 cd ../client
